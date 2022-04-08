@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def greeting(name, surname, age)
   if age < 18
     "Привет, #{name} #{surname}. Тебе меньше 18 лет, но начать учиться программировать никогда не рано."
@@ -6,11 +8,11 @@ def greeting(name, surname, age)
   end
 end
 
-print "Введите Ваше имя: "
+print 'Введите Ваше имя: '
 name = gets.chomp
-print "Введите Вашу фамилию: "
+print 'Введите Вашу фамилию: '
 surname = gets.chomp
-print "Введите Ваш возраст: "
+print 'Введите Ваш возраст: '
 age = gets.to_i
 
 puts greeting(name, surname, age)
@@ -23,9 +25,9 @@ def foobar(number1, number2)
   end
 end
 
-print "Введите первое число: "
+print 'Введите первое число: '
 number1 = gets.to_i
-print "Введите второе число: "
+print 'Введите второе число: '
 number2 = gets.to_i
 
 puts foobar(number1, number2)
