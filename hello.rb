@@ -1,2 +1,4 @@
-puts 'Hello World' 
-puts 'Hello CDG students!' 
+# frozen_string_literal: true
+
+puts 'Hello World'
+puts 'Hello CDG students!'
