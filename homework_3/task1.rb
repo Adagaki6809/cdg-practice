@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ROUTE_PATH = 'darksouls2.txt'
-BUFFER = 'buffer.txt'
+BUFFER_PATH = 'buffer.txt'
 
 # выводит все строки
 def index
@@ -22,7 +22,7 @@ end
 def where(pattern)
   matched_lines = {}
   File.foreach(ROUTE_PATH).with_index do |line, index|
-    matched_lines[index] = line if line.downcase.include?(pattern)
+    matched_lines[index] = line if line.include?(pattern)
   end
   pp matched_lines.keys
   pp matched_lines.values.map(&:chomp)
@@ -30,26 +30,28 @@ end
 
 # обновляет конкретную строку файла
 def update(id, text)
-  buffer = File.open(BUFFER, 'w')
+  buffer = File.open(BUFFER_PATH, 'w')
   File.foreach(ROUTE_PATH).with_index do |line, index|
     buffer.puts(index == id ? text : line)
   end
   buffer.close
 
-  File.write(ROUTE_PATH, File.read(BUFFER))
-  File.delete(BUFFER) if File.exist?(BUFFER)
+  File.write(ROUTE_PATH, File.read(BUFFER_PATH))
+  File.delete(BUFFER_PATH) if File.exist?(BUFFER_PATH)
+  index
 end
 
 # удаляет строку
 def delete(id)
-  buffer = File.open(BUFFER, 'w')
+  buffer = File.open(BUFFER_PATH, 'w')
   File.foreach(ROUTE_PATH).with_index do |line, index|
     buffer.puts(line) if index != id
   end
   buffer.close
 
-  File.write(ROUTE_PATH, File.read(BUFFER))
-  File.delete(BUFFER) if File.exist?(BUFFER)
+  File.write(ROUTE_PATH, File.read(BUFFER_PATH))
+  File.delete(BUFFER_PATH) if File.exist?(BUFFER_PATH)
+  index
 end
 
 index
