@@ -70,8 +70,12 @@ RSpec.describe 'update' do
 
   before { File.write(ROUTE_PATH, string) }
 
-  it 'it prints all lines with 4th line updated to Cosmos' do
-    expect { update(3, 'Cosmos') }.to output("Hello\nWorld\nGoodbye\nCosmos\n").to_stdout
+  it 'updates 4th line to Cosmos' do
+    buffer = StringIO.new
+    content = "Hello\nWorld\nGoodbye\nCosmos\n"
+    allow(File).to receive(:write).with(ROUTE_PATH, content).and_yield(buffer)
+    update(3, 'Cosmos')
+    expect(buffer.string).to eq(content)
   end
 end
 
@@ -87,11 +91,19 @@ RSpec.describe 'delete' do
 
   before { File.write(ROUTE_PATH, string) }
 
-  it 'deletes 2nd line from file and prints all lines' do
-    expect { delete(1) }.to output("Hello\nGoodbye\nUniverse\n").to_stdout
+  it 'deletes 2nd line from file' do
+    buffer = StringIO.new
+    content = "Hello\nGoodbye\nUniverse\n"
+    allow(File).to receive(:write).with(ROUTE_PATH, content).and_yield(buffer)
+    delete(1)
+    expect(buffer.string).to eq(content)
   end
 
-  it 'deletes 3nd line from file and prints all lines' do
-    expect { delete(2) }.to output("Hello\nWorld\nUniverse\n").to_stdout
+  it 'deletes 3nd line from file' do
+    buffer = StringIO.new
+    content = "Hello\nWorld\nUniverse\n"
+    allow(File).to receive(:write).with(ROUTE_PATH, content).and_yield(buffer)
+    delete(2)
+    expect(buffer.string).to eq(content)
   end
 end

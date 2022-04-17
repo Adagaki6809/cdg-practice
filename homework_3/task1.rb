@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-ROUTE_PATH = 'darksouls2.txt'
-BUFFER_PATH = 'buffer.txt'
+ROUTE_PATH = "#{File.dirname(__FILE__)}/darksouls2.txt".freeze
+BUFFER_PATH = "#{File.dirname(__FILE__)}/buffer.txt".freeze
 
 # выводит все строки
 def index
@@ -36,9 +36,8 @@ def update(id, text)
   end
   buffer.close
 
-  File.write(ROUTE_PATH, File.read(BUFFER_PATH))
+  File.write(ROUTE_PATH, File.read(BUFFER_PATH)) { |f| f.write(File.read(BUFFER_PATH)) }
   File.delete(BUFFER_PATH) if File.exist?(BUFFER_PATH)
-  index
 end
 
 # удаляет строку
@@ -49,9 +48,8 @@ def delete(id)
   end
   buffer.close
 
-  File.write(ROUTE_PATH, File.read(BUFFER_PATH))
+  File.write(ROUTE_PATH, File.read(BUFFER_PATH)) { |f| f.write(File.read(BUFFER_PATH)) }
   File.delete(BUFFER_PATH) if File.exist?(BUFFER_PATH)
-  index
 end
 
 index
