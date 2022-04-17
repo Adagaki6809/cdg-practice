@@ -53,4 +53,4 @@ def balance(balance)
   puts "Ваш баланс: #{balance}"
 end
 
-# atm
+atm
