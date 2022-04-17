@@ -15,7 +15,7 @@ def atm
     when 'b'
       balance(balance)
     when 'q'
-      File.write(BALANCE_PATH, balance)
+      File.open(BALANCE_PATH, 'w') { |f| f.write(balance) }
       break
     else
       puts 'Такой команды не существует.'
@@ -28,7 +28,7 @@ def deposit(balance)
   sum = gets.to_f
   if sum.positive?
     balance += sum
-    puts "Ваш баланс: #{balance}"
+    balance(balance)
   else
     puts 'Сумма должна быть больше нуля!'
   end
@@ -40,7 +40,7 @@ def withdraw(balance)
   sum = gets.to_f
   if sum.positive? && sum <= balance
     balance -= sum
-    puts "Ваш баланс: #{balance}"
+    balance(balance)
   elsif sum <= 0
     puts 'Сумма должна быть больше нуля!'
   else
@@ -53,4 +53,4 @@ def balance(balance)
   puts "Ваш баланс: #{balance}"
 end
 
-atm
+# atm
